@@ -1,8 +1,55 @@
-<html>
+  <html>
   <head>
-  
+  <style>
+    body {
+      background-color: white; 
+      transition: background-color 1s ease; 
+      color: black;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #startbutton{
+      background-color: red;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:30vh;
+    }
+    
+    #startingWebsiteMsg{
+      color:white;
+      transition:color 3s ease;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    #websiteStarted{
+      color:white;
+      transition:color 10s ease;
+      display:flex;
+      jutify-content:center;
+      align-items:center;
+    }
+    
+  </style>
   </head>
   <body>
-    <p>Hello World!</p>
+    <div id="startbutton">
+    <button onclick="startSite()"></button>
+    </div>
+    <div id="startingWebsiteMsg">
+      <p>Initialising site, please wait...</p>
+    </div>
+    <div id="websiteStarted">
+       <p>Site has started!</p> 
+    </div>
+    <script>
+       function startSite(){
+       document.getElementById("startbutton").style.display= "none";
+       document.body.style.backgroundColor="black";
+       document.getElementById("startingWebsiteMsg").style.color="black"
+       document.getElementById("websiteStarted").style.color="white"
+       }
+    </script>
   </body>
 </html>
