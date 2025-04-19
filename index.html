@@ -1,5 +1,5 @@
-  <html>
-  <head>
+<html>
+<head>
   <style>
     body {
       background-color: white; 
@@ -8,48 +8,58 @@
       font-family: Arial, sans-serif;
       text-align: center;
     }
-    #startbutton{
+
+    #startbutton {
       background-color: red;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:30vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 30vh;
     }
-    
-    #startingWebsiteMsg{
-      color:white;
-      transition:color 3s ease;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+
+    #startingWebsiteMsg {
+      color: white;
+      transition: opacity 2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
     }
-    #websiteStarted{
-      color:white;
-      transition:color 10s ease;
-      display:flex;
-      jutify-content:center;
-      align-items:center;
+
+    #websiteStarted {
+      color: white;
+      display: none;
+      justify-content: center;
+      align-items: center;
     }
-    
   </style>
-  </head>
-  <body>
-    <div id="startbutton">
-    <button onclick="startSite()"></button>
-    </div>
-    <div id="startingWebsiteMsg">
-      <p>Initialising site, please wait...</p>
-    </div>
-    <div id="websiteStarted">
-       <p>Site has started!</p> 
-    </div>
-    <script>
-       function startSite(){
-       document.getElementById("startbutton").style.display= "none";
-       document.body.style.backgroundColor="black";
-       document.getElementById("startingWebsiteMsg").style.color="black"
-       document.getElementById("websiteStarted").style.color="white"
-       }
-    </script>
-  </body>
+</head>
+<body>
+  <div id="startbutton">
+    <button onclick="startSite()">Start</button>
+  </div>
+
+  <div id="startingWebsiteMsg">
+    <p>Initialising site, please wait...</p>
+  </div>
+
+  <div id="websiteStarted">
+    <p>Site has started!</p> 
+  </div>
+
+  <script>
+    function startSite() {
+      document.getElementById("startbutton").style.display = "none";
+      document.body.style.backgroundColor = "black";
+
+      const initMsg = document.getElementById("startingWebsiteMsg");
+      initMsg.style.opacity = 0;
+
+      setTimeout(() => {
+        initMsg.style.display = "none";
+        document.getElementById("websiteStarted").style.display = "flex";
+      }, 2000);
+    }
+  </script>
+</body>
 </html>
