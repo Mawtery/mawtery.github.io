@@ -57,13 +57,14 @@
       border-radius: 10px;
     }
 
-    .textBlock {
+    .leftSide {
       font-size: 18px;
       max-width: 600px;
+      text-align: left;
     }
 
-    .textBlock p {
-      text-align: left;
+    .rightSide {
+      text-align: right;
       line-height: 1.5;
     }
   </style>
@@ -83,19 +84,21 @@
   </div>
 
   <div id="contentWrapper">
+    <div id="leftSide">
     <div id="picOfMe">
       <img src="me.jpg" alt="pic of me">
     </div>
-    <div class="textBlock">
       <div class="intro">
-        <p>
+      <p>
           Hi, I'm Jordan, <br>
           the developer who made this site. <br>
           Congrats on finding this page. <br>
           I made this website as a <br>
           school project for showcase.
-        </p>
+      </p>
       </div>
+    </div>
+      <div id="rightSide">
       <div id="aboutSite">
         <p>
           About this site:<br>
@@ -105,7 +108,7 @@
           since this was my first GitHub Site.
         </p>
       </div>
-    </div>
+  </div>
   </div>
 
   <script>
