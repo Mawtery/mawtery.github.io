@@ -24,7 +24,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      opacity: 1;
     }
 
     #websiteStarted {
@@ -34,37 +33,39 @@
       align-items: center;
     }
 
-  .intro {
-  color: white;
-  display: none;
-  align-items: center; 
-  gap: 20px; 
-  font-family: "Arial", sans-serif;
-  font-size: 20px;
-  text-align: left;
-}
-
-#picOfMe {
-  display: none;
-  height: 200px;
-  width: auto;
-  justify-content:space-evenly;
-  align-items:left;
-}
-
-#aboutSite {
+    .intro {
       color: white;
       display: none;
-      font-family: "Arial", sans-serif;
-      font-size: 20px; 
-      text-align: right;
+      font-size: 20px;
+      text-align: left;
+      margin: 20px;
     }
-    
+
+    #picOfMe {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+    }
+
+    #picOfMe img {
+      height: 200px;
+      width: auto;
+      border-radius: 10px;
+    }
+
+    #aboutSite {
+      color: white;
+      display: none;
+      font-size: 20px;
+      text-align: right;
+      margin: 20px;
+    }
   </style>
 </head>
 <body>
   <div id="startbutton">
-    <button onclick="startSite()"></button>
+    <button onclick="startSite()">Start</button>
   </div>
 
   <div id="startingWebsiteMsg">
@@ -75,7 +76,7 @@
     <p>Site has started!</p> 
   </div>
 
-  <div class="intro" style="text-align: left;">
+  <div class="intro">
     <p>
       Hi, I'm Jordan, <br>
       the developer who made this site. <br>
@@ -84,17 +85,18 @@
       school project for showcase.
     </p>
   </div>
-      <div id="picOfMe">
-    <img src="me.jpg" alt="pic of me">
-    </div>
 
-  <div id="aboutSite" style="text-align: right;">
+  <div id="picOfMe">
+    <img src="me.jpg" alt="pic of me">
+  </div>
+
+  <div id="aboutSite">
     <p>
       About this site:<br>
       This site took me a lot of <br>
       coding and setup to make.<br>
       Many hours of coding went into this,<br>
-      since this was my first GitHub Site
+      since this was my first GitHub Site.
     </p>
   </div>
 
@@ -102,25 +104,21 @@
     function startSite() {
       document.getElementById("startbutton").style.display = "none";
       document.body.style.backgroundColor = "black";
-      
+
       const initMsg = document.getElementById("startingWebsiteMsg");
       initMsg.style.color = "black";
 
       setTimeout(() => {
         initMsg.style.display = "none";
         document.getElementById("websiteStarted").style.display = "flex";
-        
-        const siteDisp = document.getElementsByClassName("intro")[0];
-        siteDisp.style.display = "block";
 
-        const picTure = document.getElementById("picOfMe")[0];
-        picTure.style.display = "block"
-        
-        const about = document.getElementById("aboutSite");
-        about.style.display = "block";
+        document.getElementsByClassName("intro")[0].style.display = "block";
+        document.getElementById("picOfMe").style.display = "flex";
+        document.getElementById("aboutSite").style.display = "block";
       }, 4000);
     }
   </script>
 </body>
 </html>
+
 
