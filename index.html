@@ -45,6 +45,7 @@
 }
 
 #picOfMe {
+  display: none;
   height: 200px;
   width: auto;
   justify-content:space-evenly;
@@ -82,10 +83,10 @@
       I made this website as a<br>
       school project for showcase.
     </p>
-    <div id="picOfMe">
+  </div>
+      <div id="picOfMe">
     <img src="me.jpg" alt="pic of me">
     </div>
-  </div>
 
   <div id="aboutSite" style="text-align: right;">
     <p>
@@ -111,6 +112,9 @@
         
         const siteDisp = document.getElementsByClassName("intro")[0];
         siteDisp.style.display = "block";
+
+        const picTure = document.getElementById("picOfMe")[0];
+        picTure.style.display = "block"
         
         const about = document.getElementById("aboutSite");
         about.style.display = "block";
