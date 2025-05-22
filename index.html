@@ -112,6 +112,8 @@
   </div>
   </div>
 
+  <audio id= "staticBGM" src="STATIC.mp3" autoplay loop></audio>
+
   <script>
     function startSite() {
       document.getElementById("startbutton").style.display = "none";
@@ -119,6 +121,11 @@
 
       const initMsg = document.getElementById("startingWebsiteMsg");
       initMsg.style.color = "black";
+
+      const audioBg = document.getElementById("staticBGM");
+      audio.play().catch(err=> {
+        alert("Site initialisation failed. To complete, please perform a site interaction.");
+      });
 
       setTimeout(() => {
         initMsg.style.display = "none";
