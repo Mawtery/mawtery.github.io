@@ -12,20 +12,27 @@
       padding: 0;
     }
 
-    #startbutton {
-      background-color: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 10vh;
-      width: 10vw;
-    }
+ #startbutton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20vh;
+  }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+  #startBtn {
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding: 20px 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  #startBtn:hover {
+    background-color: darkred;
+  }
 
     #startingWebsiteMsg {
       color: white;
@@ -72,9 +79,7 @@
 </head>
 <body>
 
-  <div id="startbutton">
-    <button onclick="startSite()">Start Site</button>
-  </div>
+  <button id="startbutton" onclick="startSite()">Start Site</button>
 
   <div id="startingWebsiteMsg">
     <p>Initialising site, please wait...</p>
