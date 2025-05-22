@@ -11,29 +11,23 @@
       margin: 0;
       padding: 0;
     }
+    
+    .start-btn {
+      background-color: red;
+      color: white;
+      font-size: 20px;
+      padding: 20px 40px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+      margin: 20px auto;
+      display: block;
+    }
 
- #startbutton {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh;
-  }
-
-  #startbutton {
-    background-color: red;
-    color: black;
-    border-style: outset;
-    border-color: rgb(127,127,127);
-    font-size: 20px;
-    padding: 20px 40px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: background-color 0.1s ease;
-  }
-
-  #startbutton:hover {
-    background-color: darkred;
-  }
+    .start-btn:hover {
+      background-color: darkred;
+    }
 
     #startingWebsiteMsg {
       color: white;
@@ -55,6 +49,7 @@
     #contentWrapper {
       display: none;
       flex-direction: row;
+      justify-content: space-between;
       gap: 40px;
       padding: 40px;
       color: white;
@@ -66,13 +61,13 @@
       border-radius: 10px;
     }
 
-    .leftSide {
+    #leftSide {
       font-size: 18px;
       max-width: 600px;
       text-align: left;
     }
 
-    .rightSide {
+    #rightSide {
       text-align: right;
       line-height: 1.5;
     }
@@ -80,7 +75,7 @@
 </head>
 <body>
 
-  <button id="startbutton" onclick="startSite()">Start Site</button>
+  <button class="start-btn" onclick="startSite()">Start Site</button>
 
   <div id="startingWebsiteMsg">
     <p>Initialising site, please wait...</p>
@@ -92,20 +87,20 @@
 
   <div id="contentWrapper">
     <div id="leftSide">
-    <div id="picOfMe">
-      <img src="me.jpg" alt="pic of me">
-    </div>
+      <div id="picOfMe">
+        <img src="STATIC.jpg" alt="pic of me">
+      </div>
       <div class="intro">
-      <p>
+        <p>
           Hi, I'm Jordan, <br>
           the developer who made this site. <br>
           Congrats on finding this page. <br>
           I made this website as a <br>
           school project for showcase.
-      </p>
+        </p>
       </div>
     </div>
-      <div id="rightSide">
+    <div id="rightSide">
       <div id="aboutSite">
         <p>
           About this site:<br>
@@ -115,22 +110,23 @@
           since this was my first GitHub Site.
         </p>
       </div>
-  </div>
+    </div>
   </div>
 
-  <audio id= "staticBGM" src="STATIC.mp3" autoplay loop></audio>
+  <audio id="staticBGM" src="STATIC.mp3" loop></audio>
 
   <script>
     function startSite() {
-      document.getElementById("startbutton").style.display = "none";
+      document.querySelector(".start-btn").style.display = "none";
       document.body.style.backgroundColor = "black";
 
       const initMsg = document.getElementById("startingWebsiteMsg");
       initMsg.style.color = "black";
 
+  
       const audioBg = document.getElementById("staticBGM");
-      audio.play().catch(err=> {
-        alert("Site initialisation failed. To complete, please perform a site interaction.");
+      audioBg.play().catch(err => {
+        alert("Audio autoplay blocked. Please interact with the page (e.g. click) again.");
       });
 
       setTimeout(() => {
