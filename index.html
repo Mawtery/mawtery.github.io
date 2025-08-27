@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SITE</title>
+  <title>My Website</title>
   <style>
     body {
       margin: 0;
@@ -14,7 +13,7 @@
       overflow-x: hidden;
     }
 
-    /* --- Background canvas --- */
+    /* Orb canvas background */
     #orbCanvas {
       position: fixed;
       top: 0;
@@ -24,32 +23,34 @@
       z-index: -1;
     }
 
-    /* --- Content --- */
+    /* Content wrapper */
     #contentWrapper {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       gap: 40px;
       padding: 40px;
+      align-items: center;
+      text-align: center;
     }
 
     #picOfMe img {
       height: 200px;
       width: auto;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
 
-    .leftSide {
+    .intro {
       font-size: 18px;
       max-width: 600px;
-      text-align: left;
     }
 
-    .rightSide {
-      text-align: right;
-      line-height: 1.5;
+    #aboutSite {
+      font-size: 16px;
+      max-width: 600px;
     }
 
-    /* --- Footer --- */
+    /* Footer */
     footer {
       position: fixed;
       bottom: 20px;
@@ -63,36 +64,40 @@
     #instagramLogo {
       width: 40px;
       height: 40px;
-      transition: filter 0.2s ease, transform 0.3s ease;
+      transition: filter 0.3s ease, transform 0.3s ease;
     }
 
     #instagramLogo:hover {
-      filter: brightness(70%);
+      filter: brightness(0.7);
     }
 
-    #instagramText {
+    #instagramLink {
+      color: white;
+      font-size: 16px;
       opacity: 0;
       transform: translateX(-20px);
       transition: opacity 0.3s ease, transform 0.3s ease;
-      white-space: nowrap;
+    }
+
+    footer.active #instagramLink {
+      opacity: 1;
+      transform: translateX(0);
     }
 
     footer.active #instagramLogo {
-      transform: translateX(-60px);
-    }
-
-    footer.active #instagramText {
-      opacity: 1;
-      transform: translateX(0);
+      transform: translateX(-10px);
     }
   </style>
 </head>
 <body>
 
+  <!-- Orb Background -->
   <canvas id="orbCanvas"></canvas>
 
+  <!-- Main Content -->
   <div id="contentWrapper">
-    <div id="leftSide">
+    <!-- Top -->
+    <div id="topSection">
       <div id="picOfMe">
         <img src="me.jpg" alt="pic of me">
       </div>
@@ -106,7 +111,9 @@
         </p>
       </div>
     </div>
-    <div id="rightSide">
+
+    <!-- Bottom -->
+    <div id="bottomSection">
       <div id="aboutSite">
         <p>
           About this site:<br>
@@ -119,52 +126,54 @@
     </div>
   </div>
 
-  <!-- Footer with Instagram -->
-  <footer id="instagramFooter">
-    <img id="instagramLogo" src="instagram.png" alt="Instagram Logo">
-    <span id="instagramText">@yourusername</span>
+  <!-- Footer Instagram -->
+  <footer id="footer">
+    <img id="instagramLogo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+    <span id="instagramLink">@yourusername</span>
   </footer>
 
   <script>
-    /* --- Instagram click toggle --- */
-    const footer = document.getElementById("instagramFooter");
+    /* Instagram footer toggle */
+    const footer = document.getElementById("footer");
     footer.addEventListener("click", () => {
       footer.classList.toggle("active");
     });
 
-    /* --- Background Orb Animation --- */
+    /* Orb animation */
     const canvas = document.getElementById("orbCanvas");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    let orbs = [];
-    const orbCount = 20;
-
     class Orb {
       constructor() {
+        this.reset();
+      }
+      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.r = 40 + Math.random() * 60;
-        this.dx = (Math.random() - 0.5) * 0.6;
-        this.dy = (Math.random() - 0.5) * 0.6;
+        this.radius = Math.random() * 20 + 10;
+        this.color = "rgba(255,255,255," + (Math.random() * 0.2 + 0.1) + ")";
+        this.dx = (Math.random() - 0.5) * 1;
+        this.dy = (Math.random() - 0.5) * 1;
       }
       draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.05)";
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
         ctx.fill();
       }
       update() {
         this.x += this.dx;
         this.y += this.dy;
-        if (this.x - this.r < 0 || this.x + this.r > canvas.width) this.dx *= -1;
-        if (this.y - this.r < 0 || this.y + this.r > canvas.height) this.dy *= -1;
+        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) this.dx *= -1;
+        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) this.dy *= -1;
         this.draw();
       }
     }
 
-    for (let i = 0; i < orbCount; i++) {
+    const orbs = [];
+    for (let i = 0; i < 30; i++) {
       orbs.push(new Orb());
     }
 
@@ -175,11 +184,12 @@
     }
     animate();
 
-    /* --- Resize handler --- */
+    /* Resize handler */
     window.addEventListener("resize", () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
   </script>
+
 </body>
 </html>
