@@ -15,6 +15,10 @@ canvas#bg {
   z-index: 0; /* stays behind content */
 }
 
+body{
+  background-color: linear-gradient(#000926, #160026);
+}
+
 /* Your content */
 .container {
   position: relative;
