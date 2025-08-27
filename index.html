@@ -2,98 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Instagram Footer Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SITE</title>
   <style>
     body {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      background: #222;
-      color: #fff;
+      padding: 0;
+      background: black;
+      color: white;
       font-family: Arial, sans-serif;
+      overflow-x: hidden;
     }
 
-    footer {
+    /* --- Background canvas --- */
+    #orbCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      text-align: center;
-      padding: 20px;
-      background: #111;
-      font-size: 14px;
-      color: #aaa;
-      position: relative;
+      height: 100%;
+      z-index: -1;
     }
 
-    /* Instagram container */
-    .instagram-container {
-      display: inline-flex;
+    /* --- Content --- */
+    #contentWrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      padding: 40px;
+    }
+
+    #picOfMe img {
+      height: 200px;
+      width: auto;
+      border-radius: 10px;
+    }
+
+    .leftSide {
+      font-size: 18px;
+      max-width: 600px;
+      text-align: left;
+    }
+
+    .rightSide {
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* --- Footer --- */
+    footer {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
       align-items: center;
-      margin-left: 15px;
+      gap: 10px;
       cursor: pointer;
-      transition: transform 0.3s ease;
     }
 
-    .instagram-logo {
-      width: 28px;
-      height: 28px;
-      fill: white;
-      transition: filter 0.3s ease;
+    #instagramLogo {
+      width: 40px;
+      height: 40px;
+      transition: filter 0.2s ease, transform 0.3s ease;
     }
 
-    /* Darken on hover */
-    .instagram-container:hover .instagram-logo {
-      filter: brightness(0.7);
+    #instagramLogo:hover {
+      filter: brightness(70%);
     }
 
-    /* Hidden text initially */
-    .instagram-text {
+    #instagramText {
       opacity: 0;
-      max-width: 0;
-      overflow: hidden;
+      transform: translateX(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
       white-space: nowrap;
-      transition: opacity 0.3s ease, max-width 0.3s ease, margin-left 0.3s ease;
-      margin-left: 0;
-      color: #f5f5f5;
-      font-size: 14px;
-      text-decoration: none; /* for link */
     }
 
-    /* When active, reveal text */
-    .instagram-container.active .instagram-text {
+    footer.active #instagramLogo {
+      transform: translateX(-60px);
+    }
+
+    footer.active #instagramText {
       opacity: 1;
-      max-width: 150px;
-      margin-left: 8px;
+      transform: translateX(0);
     }
   </style>
 </head>
 <body>
 
-  <footer>
-    © 2025 Jordan | Built with HTML & CSS
+  <canvas id="orbCanvas"></canvas>
 
-    <div class="instagram-container" id="igContainer">
-      <!-- Instagram SVG Logo -->
-      <svg class="instagram-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.73-30.73C295.53,124,224,124,224,124s-71.53,0-93.95,6.93a54,54,0,0,0-30.73,30.73C93.33,170.47,93.33,224,93.33,224s0,53.53,6.93,75.95a54,54,0,0,0,30.73,30.73C152.47,332,224,332,224,332s71.53,0,93.95-6.93a54,54,0,0,0,30.73-30.73C354.67,277.53,354.67,224,354.67,224S354.67,170.47,348.71,161.66ZM224,293.34A69.34,69.34,0,1,1,293.34,224,69.39,69.39,0,0,1,224,293.34Zm89.6-132a16.07,16.07,0,1,1-16.07-16.07A16.07,16.07,0,0,1,313.6,161.33Z"/>
-      </svg>
-
-      <!-- Instagram Username -->
-      <a href="https://instagram.com/yourusername" target="_blank" class="instagram-text">
-        @yourusername
-      </a>
+  <div id="contentWrapper">
+    <div id="leftSide">
+      <div id="picOfMe">
+        <img src="me.jpg" alt="pic of me">
+      </div>
+      <div class="intro">
+        <p>
+          Hi, I'm Jordan, <br>
+          the developer who made this site. <br>
+          Congrats on finding this page. <br>
+          I made this website as a <br>
+          school project for showcase.
+        </p>
+      </div>
     </div>
+    <div id="rightSide">
+      <div id="aboutSite">
+        <p>
+          About this site:<br>
+          This site took me a lot of <br>
+          coding and setup to make.<br>
+          Many hours of coding went into this,<br>
+          since this was my first GitHub Site.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer with Instagram -->
+  <footer id="instagramFooter">
+    <img id="instagramLogo" src="instagram.png" alt="Instagram Logo">
+    <span id="instagramText">@yourusername</span>
   </footer>
 
   <script>
-    const igContainer = document.getElementById("igContainer");
+    /* --- Instagram click toggle --- */
+    const footer = document.getElementById("instagramFooter");
+    footer.addEventListener("click", () => {
+      footer.classList.toggle("active");
+    });
 
-    igContainer.addEventListener("click", () => {
-      igContainer.classList.toggle("active");
+    /* --- Background Orb Animation --- */
+    const canvas = document.getElementById("orbCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let orbs = [];
+    const orbCount = 20;
+
+    class Orb {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = 40 + Math.random() * 60;
+        this.dx = (Math.random() - 0.5) * 0.6;
+        this.dy = (Math.random() - 0.5) * 0.6;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.05)";
+        ctx.fill();
+      }
+      update() {
+        this.x += this.dx;
+        this.y += this.dy;
+        if (this.x - this.r < 0 || this.x + this.r > canvas.width) this.dx *= -1;
+        if (this.y - this.r < 0 || this.y + this.r > canvas.height) this.dy *= -1;
+        this.draw();
+      }
+    }
+
+    for (let i = 0; i < orbCount; i++) {
+      orbs.push(new Orb());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      orbs.forEach(orb => orb.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* --- Resize handler --- */
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
-</body>
-</html>
-
 </body>
 </html>
