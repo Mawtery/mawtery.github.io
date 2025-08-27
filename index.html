@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Website</title>
   <style>
     body {
@@ -11,6 +12,7 @@
       color: white;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
+      font-size: 20px; /* larger text */
     }
 
     /* Orb canvas background */
@@ -34,20 +36,20 @@
     }
 
     #picOfMe img {
-      height: 200px;
+      height: 250px; /* bigger photo */
       width: auto;
-      border-radius: 10px;
+      border-radius: 15px;
       margin-bottom: 20px;
     }
 
     .intro {
-      font-size: 18px;
-      max-width: 600px;
+      font-size: 22px;
+      max-width: 700px;
     }
 
     #aboutSite {
-      font-size: 16px;
-      max-width: 600px;
+      font-size: 20px;
+      max-width: 700px;
     }
 
     /* Footer */
@@ -62,8 +64,8 @@
     }
 
     #instagramLogo {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       transition: filter 0.3s ease, transform 0.3s ease;
     }
 
@@ -73,7 +75,7 @@
 
     #instagramLink {
       color: white;
-      font-size: 16px;
+      font-size: 18px;
       opacity: 0;
       transform: translateX(-20px);
       transition: opacity 0.3s ease, transform 0.3s ease;
@@ -98,98 +100,4 @@
   <div id="contentWrapper">
     <!-- Top -->
     <div id="topSection">
-      <div id="picOfMe">
-        <img src="me.jpg" alt="pic of me">
-      </div>
-      <div class="intro">
-        <p>
-          Hi, I'm Jordan, <br>
-          the developer who made this site. <br>
-          Congrats on finding this page. <br>
-          I made this website as a <br>
-          school project for showcase.
-        </p>
-      </div>
-    </div>
-
-    <!-- Bottom -->
-    <div id="bottomSection">
-      <div id="aboutSite">
-        <p>
-          About this site:<br>
-          This site took me a lot of <br>
-          coding and setup to make.<br>
-          Many hours of coding went into this,<br>
-          since this was my first GitHub Site.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer Instagram -->
-  <footer id="footer">
-    <img id="instagramLogo" src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
-    <span id="instagramLink">@yourusername</span>
-  </footer>
-
-  <script>
-    /* Instagram footer toggle */
-    const footer = document.getElementById("footer");
-    footer.addEventListener("click", () => {
-      footer.classList.toggle("active");
-    });
-
-    /* Orb animation */
-    const canvas = document.getElementById("orbCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    class Orb {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 20 + 10;
-        this.color = "rgba(255,255,255," + (Math.random() * 0.2 + 0.1) + ")";
-        this.dx = (Math.random() - 0.5) * 1;
-        this.dy = (Math.random() - 0.5) * 1;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-      update() {
-        this.x += this.dx;
-        this.y += this.dy;
-        if (this.x + this.radius > canvas.width || this.x - this.radius < 0) this.dx *= -1;
-        if (this.y + this.radius > canvas.height || this.y - this.radius < 0) this.dy *= -1;
-        this.draw();
-      }
-    }
-
-    const orbs = [];
-    for (let i = 0; i < 30; i++) {
-      orbs.push(new Orb());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      orbs.forEach(orb => orb.update());
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    /* Resize handler */
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
-  </script>
-
-</body>
-</html>
+      <div id="picO
