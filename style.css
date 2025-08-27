@@ -28,3 +28,13 @@ canvas#bg {
   font-family: Arial, sans-serif;
   font-size: 20px;
 }
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: limegreen;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
