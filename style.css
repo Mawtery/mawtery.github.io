@@ -1,0 +1,30 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Canvas takes the full screen */
+canvas#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* stays behind content */
+}
+
+/* Your content */
+.container {
+  position: relative;
+  z-index: 1; /* stays above canvas */
+  max-width: 900px;
+  margin: 100px auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 15px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
