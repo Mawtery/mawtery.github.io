@@ -1,142 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>SITE</title>
+  <meta charset="UTF-8">
+  <title>Instagram Footer Test</title>
   <style>
     body {
-      background-color: white;
-      transition: background-color 1s ease;
-      color: black;
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-    }
-    
-    .start-btn {
-      background-color: rgb(254, 254, 254);
-      color: white;
-      font-size: 20px;
-      padding: 20px 40px;
-      cursor: pointer;
-      border-style: none;
-      border-color: white;
-      border-radius: 10px;
-      transition: background-color 0.3s ease;
-      margin: 20px auto;
-      display: block;
-    }
-
-    .start-btn:hover {
-      background-color: rgb(0, 200, 0);
-    }
-
-    #startingWebsiteMsg {
-      color: white;
-      transition: color 4s ease;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
+      align-items: flex-end;
+      background: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    footer {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      background: #111;
+      font-size: 14px;
+      color: #aaa;
+      position: relative;
+    }
+
+    /* Instagram container */
+    .instagram-container {
+      display: inline-flex;
       align-items: center;
-      height: 10vh;
+      margin-left: 15px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
-    #websiteStarted {
-      color: white;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 10vh;
+    .instagram-logo {
+      width: 28px;
+      height: 28px;
+      fill: white;
+      transition: filter 0.3s ease;
     }
 
-    #contentWrapper {
-      display: none;
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 40px;
-      padding: 40px;
-      color: white;
+    /* Darken on hover */
+    .instagram-container:hover .instagram-logo {
+      filter: brightness(0.7);
     }
 
-    #picOfMe img {
-      height: 200px;
-      width: auto;
-      border-radius: 10px;
+    /* Hidden text initially */
+    .instagram-text {
+      opacity: 0;
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: opacity 0.3s ease, max-width 0.3s ease, margin-left 0.3s ease;
+      margin-left: 0;
+      color: #f5f5f5;
+      font-size: 14px;
+      text-decoration: none; /* for link */
     }
 
-    #leftSide {
-      font-size: 18px;
-      max-width: 600px;
-      text-align: left;
-    }
-
-    #rightSide {
-      text-align: right;
-      line-height: 1.5;
+    /* When active, reveal text */
+    .instagram-container.active .instagram-text {
+      opacity: 1;
+      max-width: 150px;
+      margin-left: 8px;
     }
   </style>
 </head>
 <body>
 
-  <button class="start-btn" onclick="startSite()"></button>
+  <footer>
+    © 2025 Jordan | Built with HTML & CSS
 
-  <div id="startingWebsiteMsg">
-    <p>Initialising site, please wait...</p>
-  </div>
+    <div class="instagram-container" id="igContainer">
+      <!-- Instagram SVG Logo -->
+      <svg class="instagram-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+        <path d="M224,202.66A53.34,53.34,0,1,0,277.34,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.73-30.73C295.53,124,224,124,224,124s-71.53,0-93.95,6.93a54,54,0,0,0-30.73,30.73C93.33,170.47,93.33,224,93.33,224s0,53.53,6.93,75.95a54,54,0,0,0,30.73,30.73C152.47,332,224,332,224,332s71.53,0,93.95-6.93a54,54,0,0,0,30.73-30.73C354.67,277.53,354.67,224,354.67,224S354.67,170.47,348.71,161.66ZM224,293.34A69.34,69.34,0,1,1,293.34,224,69.39,69.39,0,0,1,224,293.34Zm89.6-132a16.07,16.07,0,1,1-16.07-16.07A16.07,16.07,0,0,1,313.6,161.33Z"/>
+      </svg>
 
-  <div id="websiteStarted">
-    <p>Site has started!</p>
-  </div>
-
-  <div id="contentWrapper">
-    <div id="leftSide">
-      <div id="picOfMe">
-        <img src="me.jpg" alt="pic of me">
-      </div>
-      <div class="intro">
-        <p>
-          Hi, I'm Jordan, <br>
-          the developer who made this site. <br>
-          Congrats on finding this page. <br>
-          I made this website as a <br>
-          school project for showcase.
-        </p>
-      </div>
+      <!-- Instagram Username -->
+      <a href="https://instagram.com/yourusername" target="_blank" class="instagram-text">
+        @yourusername
+      </a>
     </div>
-    <div id="rightSide">
-      <div id="aboutSite">
-        <p>
-          About this site:<br>
-          This site took me a lot of <br>
-          coding and setup to make.<br>
-          Many hours of coding went into this,<br>
-          since this was my first GitHub Site.
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <audio id="staticBGM" src="STATIC.mp3" loop></audio>
+  </footer>
 
   <script>
-    function startSite() {
-      document.querySelector(".start-btn").style.display = "none";
-      document.body.style.backgroundColor = "black";
+    const igContainer = document.getElementById("igContainer");
 
-      const initMsg = document.getElementById("startingWebsiteMsg");
-      initMsg.style.color = "black";
-
-  
-      const audioBg = document.getElementById("staticBGM");
-      audioBg.play().catch(err => {
-        alert("Audio autoplay blocked. Please interact with the page (e.g. click) again.");
-      });
-
-      setTimeout(() => {
-        initMsg.style.display = "none";
-        document.getElementById("websiteStarted").style.display = "flex";
-        document.getElementById("contentWrapper").style.display = "flex";
-      }, 4000);
-    }
+    igContainer.addEventListener("click", () => {
+      igContainer.classList.toggle("active");
+    });
   </script>
+</body>
+</html>
 
 </body>
 </html>
