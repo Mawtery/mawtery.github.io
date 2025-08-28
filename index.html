@@ -51,6 +51,28 @@
       left: 0;
       z-index: 1;
     }
+    .instagram {
+  margin-top: 20px;
+  text-align: center;
+}
+
+  .instagram a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+  .insta-logo {
+  width: 20px;
+  height: 20px;
+  fill: white;
+  filter: invert(100%);
+}
+
   </style>
 </head>
 <body>
@@ -61,7 +83,12 @@
     <h1>Hello, I'm Jordan, creator of this site!</h1>
     <p>I built this for my SIL. It took lots and lots of code <br> and I encountered many challenges. One typo was more than enough to destroy my <br> hard work. Hoever, I overcame these challenges by using console debugging<br> as well as countless programming tutorials.</p>
   </div>
-
+  <div class="instagram">
+  <a href="https://instagram.com/mawteru" target="_blank">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="insta-logo">
+    @mawteru
+  </a>
+</div>
   <script>
     const canvas = document.getElementById("orbCanvas");
     const ctx = canvas.getContext("2d");
