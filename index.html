@@ -2,181 +2,120 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Personal Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
   <style>
-    /* General styles */
-  body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(180deg, #000529, #000000);
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    overflow: hidden;
-  }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(180deg, #000529, #000000);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      padding: 40px;
+    }
+
+    .profile-pic {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid white;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin: 10px 0 30px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 1rem;
+      color: #aaa;
+    }
 
     canvas {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: -1;
-    }
-
-    .section {
-      padding: 60px 20px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto 20px;
-    }
-
-    img.profile {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid white;
-      margin-bottom: 20px;
-    }
-
-    /* Instagram button */
-    .instagram {
-      display: inline-block;
-      margin-top: 30px;
-      cursor: pointer;
-      transition: transform 0.3s, filter 0.3s;
-    }
-
-    .instagram img {
-      width: 40px;
-      height: 40px;
-    }
-
-    .instagram:hover {
-      filter: brightness(0.7);
-    }
-
-    .instagram.active {
-      transform: translateX(-100px);
-    }
-
-    .instagram span {
-      display: none;
-      margin-left: 10px;
-      font-size: 1rem;
-      vertical-align: middle;
-    }
-
-    .instagram.active span {
-      display: inline;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
-  <!-- Background Orbs -->
   <canvas id="orbCanvas"></canvas>
 
-  <!-- Intro Section -->
-  <div class="section">
-   <img src="ME.jpg" alt="My Photo" class="profile-pic">
-
+  <div class="container">
+    <img src="ME.jpg" alt="My Photo" class="profile-pic">
     <h1>Hello, I'm [Your Name]</h1>
-    <p>Welcome to my personal website. I’m passionate about coding, design, and creating cool projects.</p>
+    <p>Welcome to my site! I build cool projects and share my journey here.</p>
+    <footer>© 2025 My Website</footer>
   </div>
 
-  <!-- Site Details Section -->
-  <div class="section" style="background: rgba(0,0,0,0.3); border-radius: 20px;">
-    <h1>About This Site</h1>
-    <p>This site is built with HTML, CSS, and JavaScript. The background orbs are fully animated and interactive. On click, they follow the cursor before snapping back.</p>
-  </div>
-
-  <!-- Instagram -->
-  <div class="section">
-    <div class="instagram" id="instagram">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-      <span>@your_instagram</span>
-    </div>
-  </div>
-
-  <!-- JavaScript -->
   <script>
-    // ORBS BACKGROUND
-    const canvas = document.getElementById('orbCanvas');
-    const ctx = canvas.getContext('2d');
+    const canvas = document.getElementById("orbCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
     let orbs = [];
-    let followCursor = false;
-    let cursor = { x: 0, y: 0 };
+    const numOrbs = 40;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    class Orb {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.r = Math.random() * 15 + 10;
-        this.dx = (Math.random() - 0.5) * 1.5;
-        this.dy = (Math.random() - 0.5) * 1.5;
-        this.ox = this.x; // original position
-        this.oy = this.y;
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(255,255,255,0.5)";
-        ctx.fill();
-      }
-      update() {
-        if (followCursor) {
-          this.x += (cursor.x - this.x) * 0.05;
-          this.y += (cursor.y - this.y) * 0.05;
-        } else {
-          this.x += (this.ox - this.x) * 0.02;
-          this.y += (this.oy - this.y) * 0.02;
-        }
-        this.draw();
-      }
+    for (let i = 0; i < numOrbs; i++) {
+      orbs.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        radius: Math.random() * 6 + 2,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5
+      });
     }
 
-    for (let i = 0; i < 40; i++) {
-      orbs.push(new Orb());
-    }
+    document.addEventListener("mousemove", (e) => {
+      orbs.forEach(orb => {
+        orb.vx += (e.clientX - orb.x) * 0.0005;
+        orb.vy += (e.clientY - orb.y) * 0.0005;
+      });
+    });
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      orbs.forEach(orb => orb.update());
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+
+      orbs.forEach(orb => {
+        orb.x += orb.vx;
+        orb.y += orb.vy;
+
+        // bounce off edges
+        if (orb.x < 0 || orb.x > canvas.width) orb.vx *= -1;
+        if (orb.y < 0 || orb.y > canvas.height) orb.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
       requestAnimationFrame(animate);
     }
+
     animate();
 
-    window.addEventListener('click', e => {
-      followCursor = !followCursor;
-      cursor.x = e.clientX;
-      cursor.y = e.clientY;
-    });
-
-    window.addEventListener('mousemove', e => {
-      cursor.x = e.clientX;
-      cursor.y = e.clientY;
-    });
-
-    // INSTAGRAM BUTTON
-    const insta = document.getElementById("instagram");
-    insta.addEventListener("click", () => {
-      insta.classList.toggle("active");
+    // Resize canvas on window resize
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     });
   </script>
 </body>
