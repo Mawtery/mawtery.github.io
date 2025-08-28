@@ -2,40 +2,181 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mawtery | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <title>My Personal Site</title>
+  <style>
+    /* General styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .section {
+      padding: 60px 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    img.profile {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-bottom: 20px;
+    }
+
+    /* Instagram button */
+    .instagram {
+      display: inline-block;
+      margin-top: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, filter 0.3s;
+    }
+
+    .instagram img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .instagram:hover {
+      filter: brightness(0.7);
+    }
+
+    .instagram.active {
+      transform: translateX(-100px);
+    }
+
+    .instagram span {
+      display: none;
+      margin-left: 10px;
+      font-size: 1rem;
+      vertical-align: middle;
+    }
+
+    .instagram.active span {
+      display: inline;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Hi, I'm Mawtery 👋</h1>
-  </header>
+  <!-- Background Orbs -->
+  <canvas id="orbCanvas"></canvas>
 
-  <main>
-    <section id="intro">
-      <img src="me.jpg" alt="My photo" class="profile-pic">
-      <p>Welcome to my website! I'm building projects and learning web dev 🚀</p>
-    </section>
+  <!-- Intro Section -->
+  <div class="section">
+    <img src="https://via.placeholder.com/150" alt="My Photo" class="profile">
+    <h1>Hello, I'm [Your Name]</h1>
+    <p>Welcome to my personal website. I’m passionate about coding, design, and creating cool projects.</p>
+  </div>
 
-    <section id="projects">
-      <h2>What I'm Building</h2>
-      <ul>
-        <li>🌐 My personal website</li>
-        <li>🎮 Small JS games</li>
-        <li>📚 Learning CSS tricks</li>
-      </ul>
-    </section>
-  </main>
+  <!-- Site Details Section -->
+  <div class="section" style="background: rgba(0,0,0,0.3); border-radius: 20px;">
+    <h1>About This Site</h1>
+    <p>This site is built with HTML, CSS, and JavaScript. The background orbs are fully animated and interactive. On click, they follow the cursor before snapping back.</p>
+  </div>
 
-  <footer>
-    <p>© 2025 Mawtery</p>
-    <a href="https://instagram.com/YOUR_USERNAME" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" 
-           alt="Instagram" class="instagram-icon">
-    </a>
-  </footer>
+  <!-- Instagram -->
+  <div class="section">
+    <div class="instagram" id="instagram">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+      <span>@your_instagram</span>
+    </div>
+  </div>
 
-  <!-- Load JS after everything else -->
-  <script src="script.js" defer></script>
+  <!-- JavaScript -->
+  <script>
+    // ORBS BACKGROUND
+    const canvas = document.getElementById('orbCanvas');
+    const ctx = canvas.getContext('2d');
+    let orbs = [];
+    let followCursor = false;
+    let cursor = { x: 0, y: 0 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Orb {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.r = Math.random() * 15 + 10;
+        this.dx = (Math.random() - 0.5) * 1.5;
+        this.dy = (Math.random() - 0.5) * 1.5;
+        this.ox = this.x; // original position
+        this.oy = this.y;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,255,0.5)";
+        ctx.fill();
+      }
+      update() {
+        if (followCursor) {
+          this.x += (cursor.x - this.x) * 0.05;
+          this.y += (cursor.y - this.y) * 0.05;
+        } else {
+          this.x += (this.ox - this.x) * 0.02;
+          this.y += (this.oy - this.y) * 0.02;
+        }
+        this.draw();
+      }
+    }
+
+    for (let i = 0; i < 40; i++) {
+      orbs.push(new Orb());
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      orbs.forEach(orb => orb.update());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('click', e => {
+      followCursor = !followCursor;
+      cursor.x = e.clientX;
+      cursor.y = e.clientY;
+    });
+
+    window.addEventListener('mousemove', e => {
+      cursor.x = e.clientX;
+      cursor.y = e.clientY;
+    });
+
+    // INSTAGRAM BUTTON
+    const insta = document.getElementById("instagram");
+    insta.addEventListener("click", () => {
+      insta.classList.toggle("active");
+    });
+  </script>
 </body>
 </html>
