@@ -1,147 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Site — mawteru</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(180deg, #000529, #000000);
-      color: white;
+    /* ========== BASE ========== */
+    :root {
+      --bg-top: #000529;
+      --bg-bottom: #000000;
+      --accent: #ff3366;
+      --muted: #bbb;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+    }
+
+    body{
       font-family: Arial, sans-serif;
-      text-align: center;
-      overflow: hidden;
+      background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+      color: #fff;
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .container {
+    /* ========== CANVAS ========== */
+    canvas#orbCanvas{
+      position: fixed;
+      inset: 0;            /* shorthand for top:0;right:0;bottom:0;left:0; */
+      width: 100%;
+      height: 100%;
+      z-index: 0;          /* behind content */
+      /* important: allow pointer events to reach page elements */
+      pointer-events: none;
+      display: block;
+    }
+
+    /* ========== CONTENT ========== */
+    .page {
       position: relative;
-      z-index: 2;
-      padding: 40px;
+      z-index: 1;          /* above canvas */
+      max-width: 980px;
+      margin: 40px auto;
+      padding: 32px;
+      text-align: center;
     }
 
-    .profile-pic {
-      width: 200px;
-      height: 200px;
-      border: 4px solid white;
-      margin-bottom: 20px;
+    .profile {
+      width: 220px;        /* use what fits */
+      height: auto;
+      border: 4px solid var(--accent);
       object-fit: cover;
+      display: inline-block;
+      margin-bottom: 18px;
+      border-radius: 8px;  /* rectangle with slightly rounded corners */
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin: 0;
+      margin: 8px 0 12px;
+      font-size: 2.2rem;
+      letter-spacing: 0.5px;
     }
 
-    p {
-      font-size: 1.2rem;
-      margin: 10px 0 30px;
+    p.lead {
+      margin: 0 auto 20px;
+      max-width: 760px;
+      color: #ddd;
+      font-size: 1.05rem;
+      line-height: 1.5;
     }
 
-    footer {
-      margin-top: 40px;
+    .details {
+      margin-top: 28px;
+      padding: 22px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      color: #e8e8e8;
       font-size: 1rem;
-      color: #aaa;
+      line-height: 1.5;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1;
-    }
+    /* ========== INSTAGRAM (under details) ========== */
     .instagram {
-  margin-top: 20px;
-  text-align: center;
-}
+      margin-top: 22px;
+    }
 
-  .instagram a {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 500;
-}
+    .instagram a {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 1.05rem;
+      background: rgba(255,255,255,0.03);
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.4);
+    }
 
-  .insta-logo {
-  width: 20px;
-  height: 20px;
-  fill: white;
-  filter: invert(100%);
-}
+    .instagram a:hover {
+      transform: translateX(-6px) scale(1.02);
+      background: rgba(255,255,255,0.06);
+    }
 
+    /* inline svg icon styling (if using <svg>) */
+    .instagram svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+      fill: white;
+      opacity: 0.98;
+    }
+
+    /* mobile tweaks */
+    @media (max-width:640px){
+      .profile { width:160px; }
+      h1 { font-size:1.6rem; }
+      .page { padding:20px; margin:20px; }
+    }
   </style>
 </head>
 <body>
-  <canvas id="orbCanvas"></canvas>
+  <!-- Canvas background -->
+  <canvas id="orbCanvas" aria-hidden="true"></canvas>
 
-  <div class="container">
-    <img src="me.jpg" alt="My Photo" class="profile-pic">
-    <h1>Hello, I'm Jordan, creator of this site!</h1>
-    <p>I built this for my SIL. It took lots and lots of code <br> and I encountered many challenges. One typo was more than enough to destroy my <br> hard work. Hoever, I overcame these challenges by using console debugging<br> as well as countless programming tutorials.</p>
+  <!-- Content -->
+  <div class="page" role="main">
+    <!-- image: ensure file name exactly matches ME.jpg (case-sensitive) -->
+    <img src="ME.jpg" alt="Photo of me" class="profile" id="profileImg">
+
+    <h1>Hello, I’m Jordan, creator of this site.</h1>
+    <p class="lead">
+    I built this for my SIL. It took lots and lots of code<br>
+    and I encountered many challenges. One typo was more than enough to destroy my<br>
+    hard work. Hoever, I overcame these challenges by using console debugging<br>
+    as well as countless programming tutorials. Go check out W3Schools! (I'm not sponsored)<br>
+    </p>
+
+    <div class="details" id="details">
+      <strong>Site building details</strong>
+      <p style="margin-top:8px;">
+        Built with HTML, CSS and JavaScript — hosted on GitHub Pages.<br>
+        The background orbs are rendered on a canvas and intentionally do not block clicks.
+      </p>
+
+      <!-- Instagram link placed below details -->
+      <div class="instagram" aria-label="Instagram link">
+        <a href="https://instagram.com/mawteru" target="_blank" rel="noopener noreferrer" id="igLink">
+          <!-- Inline SVG Instagram icon (so we can style easily) -->
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zm5-.75a1.25 1.25 0 1 1-1.25-1.25A1.25 1.25 0 0 1 17 7.75z"/>
+          </svg>
+          @mawteru
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="instagram">
-  <a href="https://instagram.com/mawteru" target="_blank">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" class="insta-logo">
-    @mawteru
-  </a>
-</div>
+
   <script>
-    const canvas = document.getElementById("orbCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    /**************************************************************************
+     * Orb background
+     * - canvas is pointer-events: none so clicks/pass-through work
+     * - we use global mouse coords from window events
+     * - orbs gently drift; mousemove pulls them slightly; click attracts then snap back
+     **************************************************************************/
 
-    let orbs = [];
-    const numOrbs = 40;
+    const canvas = document.getElementById('orbCanvas');
+    const ctx = canvas.getContext('2d');
 
-    for (let i = 0; i < numOrbs; i++) {
+    function fitCanvas(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    fitCanvas();
+    window.addEventListener('resize', fitCanvas);
+
+    // orb data
+    const ORB_COUNT = 36;
+    const orbs = [];
+
+    // create orbs with base (home) positions
+    for (let i=0;i<ORB_COUNT;i++){
+      const x = Math.random()*canvas.width;
+      const y = Math.random()*canvas.height;
       orbs.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: Math.random() * 6 + 2,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5
+        x, y,
+        ox:x, oy:y,             // original position (home)
+        vx: (Math.random()-0.5)*0.6,
+        vy: (Math.random()-0.5)*0.6,
+        r: Math.random()*8 + 3,
+        alpha: Math.random()*0.35 + 0.12
       });
     }
 
-    document.addEventListener("mousemove", (e) => {
-      orbs.forEach(orb => {
-        orb.vx += (e.clientX - orb.x) * 0.00001;
-        orb.vy += (e.clientY - orb.y) * 0.00001;
-      });
+    // global mouse state (window-level events used because canvas is pointer-events: none)
+    const mouse = { x: null, y: null, down:false };
+
+    window.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      // no extra logic here — orbs read mouse on each frame
     });
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(255,255,255,0.5)";
+    window.addEventListener('mouseleave', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
 
-      orbs.forEach(orb => {
-        orb.x += orb.vx;
-        orb.y += orb.vy;
-
-        // bounce off edges
-        if (orb.x < 0 || orb.x > canvas.width) orb.vx *= -1;
-        if (orb.y < 0 || orb.y > canvas.height) orb.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(orb.x, orb.y, orb.radius, 0, Math.PI * 2);
-        ctx.fill();
+    // On click: set temporary "attract" to cursor for a short time
+    window.addEventListener('click', e => {
+      // capture click point (so even though canvas doesn't receive events, window does)
+      const tx = e.clientX, ty = e.clientY;
+      // for each orb, set a temporary attraction target and then release after timeout
+      orbs.forEach(o=>{
+        // store current home so they can snap back
+        o.targetX = tx;
+        o.targetY = ty;
       });
+      // release after 1200ms
+      setTimeout(()=> {
+        orbs.forEach(o=>{
+          o.targetX = o.ox;
+          o.targetY = o.oy;
+        });
+      }, 1200);
+    });
+
+    // animation loop
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      for (let o of orbs){
+        // 1) gentle drift toward home (keeps them from going wild)
+        o.vx += (o.ox - o.x) * 0.0008;
+        o.vy += (o.oy - o.y) * 0.0008;
+
+        // 2) if mouse is present, pull slightly toward mouse
+        if (mouse.x !== null){
+          const dx = mouse.x - o.x;
+          const dy = mouse.y - o.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 250){ // only if reasonably near
+            // scaled pull (weaker for far orbs)
+            const pull = 0.0012;
+            o.vx += dx * pull;
+            o.vy += dy * pull;
+          }
+        }
+
+        // 3) if click target present (targetX/targetY), pull stronger toward that
+        if (typeof o.targetX === 'number'){
+          // stronger attraction toward targetX/Y
+          const dx2 = o.targetX - o.x;
+          const dy2 = o.targetY - o.y;
+          o.vx += dx2 * 0.0025;
+          o.vy += dy2 * 0.0025;
+        }
+
+        // 4) apply velocity (dampen to avoid runaway)
+        o.vx *= 0.96;
+        o.vy *= 0.96;
+        o.x += o.vx;
+        o.y += o.vy;
+
+        // bounds check
+        if (o.x < -50) o.x = canvas.width + 50;
+        if (o.x > canvas.width + 50) o.x = -50;
+        if (o.y < -50) o.y = canvas.height + 50;
+        if (o.y > canvas.height + 50) o.y = -50;
+
+        // draw
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${o.alpha})`;
+        ctx.arc(o.x, o.y, o.r, 0, Math.PI*2);
+        ctx.fill();
+      }
 
       requestAnimationFrame(animate);
     }
-
     animate();
 
-    // Resize canvas on window resize
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    /**************************************************************************
+     * QUICK DEBUG HELP (optional): If you still can't click the link, open devtools
+     * and check if any element overlays it. But pointer-events: none on canvas
+     * plus z-index layering should ensure link receives clicks.
+     **************************************************************************/
   </script>
 </body>
 </html>
